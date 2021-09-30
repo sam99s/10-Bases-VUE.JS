@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUE JS</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="up container-fluid d-flex justify-content-center align-items-center">
+        <h1 class="text-center text-decoration-underline">VUE JS</h1>
+        <img src="./logo.png" alt="Logo" class="col-1"> 
+    </div>
+
+    <div id="app" class="container-fluid">
+        <h2>Evento #1</h2>
+        <input type="text" v-on:input="changeTitle">
+        <p v-once>{{ title }}</p>
+
+        <hr>
+
+        <h2> #2 - Llamado a una funcion</h2>
+        <p v-once>{{saludo()}}</p>
+
+        <hr>
+
+        <h2> #3 - Ir a un enlace externo</h2>
+        <a :href="link" style="color: white;">VUE</a>
+
+        <hr>
+
+        <h2> #4 - Directiva v-once</h2>
+        <p>{{cambiaso()}}</p>
+
+        <hr>
+
+        <h2> #5 - Directiva v-html (Renderizar elemento)</h2>
+        <P V-HTML="finishedLink"></P>
+
+        <hr>
+
+        <div class="container d-flex text-center justify-content-between">
+
+            <div class="col-5">
+                <h2> #6 - Evento Click</h2>
+                <button class="btn btn-outline-light mt-5 mb-5" @click='increase'>+</button>
+                <p class="fs-4">{{counterI}}</p>
+            </div>
+
+            <div class="col-5 text-center">
+                <hr>
+
+                <h2> #6.2 - Evento Click (con argumentos)</h2>
+                <button class="btn btn-outline-light mt-5 mb-5" @click='increaseA(3), $event'>+</button>
+                <p class="fs-4">{{counterII}}</p>
+            </div>
+            
+
+        </div>
+
+        
+
+        <hr>
+
+        <h2> #7 - Conditional render</h2>
+        <p v-show="condicional">Prueba condicional</p>
+        <button @click="condicional = !condicional" class="btn btn-light">Modificar</button>
+
+        <hr>
+
+        <div class="d-flex">
+            <div class="col-4 text-center">
+                <h2> #8 - iteracion de array</h2>
+                <ul>
+                    <!-- Siempre se pone :key= "currentValue" como clave -->
+                    <li v-for="(ingredient, index) in ingredients" :key="ingredient">{{ ingredient }} ({{index}})</li>
+                </ul>
+            </div>
+
+            <div class="col-4 text-center">
+                <hr>
+                <h2> #8.2 - Iteracion de arrays de objetos</h2>
+                <ul>
+                    <li v-for="person in persons">
+                        <div v-for="(value, key, index) in person">{{ key }}: {{ value }}. Index: ({{ index }})</div>
+                        <br>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-4 text-center">
+                <hr>
+                <hr>
+                <h2> #8.3 - Iteracion de numeros</h2>
+                <ul>
+                    <div v-for="n in 10">{{ n }}</div>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2> #9 - Propiedades Computadas</h2>
+        <div>
+            <p>Mensaje Original: {{ mensaje }}</p>
+            <p>Mensaje Invertido de Method: {{ invested() }}</p>
+            <p>Mensaje Invertido y computado: {{ invertido }}</p>
+        </div>
+
+        <hr>
+
+        <div class="container-fluid d-flex justify-content-between">
+            <div class="col-6">
+                <h2> #10 - css class</h2>
+                <div class="container d-flex justify-content-center mt-5 mb-5 flex-wrap">
+                    <!-- :class es para tomar las clases de VUE, que pueden ser variable y conectarse con v-model como en el input -->
+                    <!-- Ademas pueden ser varias clases entre [] y las clases se llaman entre '' (englobadas con ="") -->
+                    <div class="demo d-flex align-items-center justify-content-center fs-6" @click="attachRed = !attachRed" :class="[{red: attachRed}, 'p-3', fondo]">Class or Click me</div>
+                    <div class="container text-center mt-5">
+                        <input class="col-12" type="text" placeholder="Write green, red or a Bootstrap Class" v-model="fondo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <hr>
+
+                <h2> #10.2 - css class</h2>
+                <div class="contaienr d-flex justify-content-center mt-5 mb-5 flex-wrap text-center"> 
+                    <!-- :class tiene render condicional, es decir, si true o si flase, toma dicha clase -->                   
+                    <div class="text-white p-3" :class="{'bg-info' : color, 'bg-success' : !color }">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quaerat qui sit molestiae dolore voluptatibus porro inventore tempora officiis placeat cupiditate officia temporibus, ratione cumque, animi quisquam quidem numquam velit!</p>
+                        <button @click="color = !color" :class="{'btn-success' : color, 'btn-info' : !color}">Switch Color</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+    <div class="up container-fluid d-flex justify-content-center align-items-center">
+        <h2 class="text-center mt-5 mb-5">By: Sam99s</h2>
+    </div>
+    
+
+
+    <script src="./app.js"></script>
+</body>
+</html>
